@@ -36,9 +36,16 @@ def sort_by_cohort(filename):
     winter_15 = []
     spring_15 = []
     summer_15 = []
+    unknown = []
     tas = []
 
-    # 1. Create a set of lists (is there a way to put in tuples?)
+    first_name_index = 0
+    last_name_index = 1
+    house_index = 2
+    advisor_index = 3
+    cohort_index = 4
+
+    # 1. Put student info in tuples and add to set
 
     student_set = set()
 
@@ -46,17 +53,41 @@ def sort_by_cohort(filename):
     for line in student_file:
         line = line.rstrip()
         student_info = line.split("|")
-        print student_info
-        student_set.add(student_info)
+        #print student_info
 
+        student_tuple = (student_info[0], student_info[1], student_info[2],
+                            student_info[3], student_info[4])
+        #print student_tuple
 
-print student_set
+        student_set.add(student_tuple)
 
-
+    #print student_set
 
     # 2. Iterate over this collection to pull out student names for
     #       specific cohorts. Put these in separate lists:
     #       Winter 2015, Spring 2015, Summer 2015.
+
+    for student in student_set:
+        cohort = student[cohort_index]
+        #print cohort
+
+        if cohort == "Winter 2015":
+            winter_15.append(student)
+        elif cohort == "Spring 2015":
+            spring_15.append(student)
+        elif cohort == "Summer 2015":
+            summer_15.append(student)
+        else:
+            unknown.append(student)
+
+
+
+    print "\nWinter\n", winter_15
+    print "\nSpring\n", spring_15
+    print "\nSummer\n", summer_15
+    print "\nUnknown\n", unknown  
+
+
     # 3. Look for students who are also advisors and put them in a list of TAs.
 
 
